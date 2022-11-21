@@ -7,7 +7,7 @@ main tools to install: <br />
 
 For more install info - look at installation tutorials of this tools above. <br />
 
-python libs:
+python packages:
 - sys
 - traceback
 - PIL
