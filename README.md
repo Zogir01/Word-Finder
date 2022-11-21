@@ -2,7 +2,7 @@
 A tool for finding specified keywords from images or pdf's <br />
 
 main tools to install: <br /> 
-- Poppler - to convert pdf's to image format. [] <br />
+- Poppler - to convert pdf's to image format. [https://github.com/oschwartz10612/poppler-windows/releases/] <br />
 - Pytesseract - a python wrapper for Google Tesseract-OCR [https://github.com/madmaze/pytesseract] <br />
 
 For more install info - look at installation tutorials of this tools above. <br />
