@@ -22,7 +22,7 @@ python packages:
 
 The look of program: <br />
 
-![Przechwytywanie](https://user-images.githubusercontent.com/33838656/203034901-d0043ae9-cd44-488a-96e0-5486b240a050.PNG) <br />
+![Przechwytywanie](https://user-images.githubusercontent.com/33838656/203035097-27f86a82-9654-4c6d-a97b-ae034a44d26c.PNG) <br />
 
 
 The main reason of creating Word-Finder is create convenient tool to search specified words in any images. The program has a gui, where we can select over data in easy way. <br />
