@@ -1,0 +1,12 @@
+C:\Users\tom3k\Desktop\Word Counter - Gui source v8\Word Counter\obj\Debug\Word Finder.csproj.AssemblyReference.cache
+C:\Users\tom3k\Desktop\Word Counter - Gui source v8\Word Counter\obj\Debug\Word Finder.csproj.SuggestedBindingRedirects.cache
+C:\Users\tom3k\Desktop\Word Counter - Gui source v8\Word Counter\obj\Debug\Word_Finder.addKeywordsForm.resources
+C:\Users\tom3k\Desktop\Word Counter - Gui source v8\Word Counter\obj\Debug\Word_Finder.MainForm.resources
+C:\Users\tom3k\Desktop\Word Counter - Gui source v8\Word Counter\obj\Debug\Word Finder.csproj.GenerateResource.cache
+C:\Users\tom3k\Desktop\Word Counter - Gui source v8\Word Counter\obj\Debug\Word Finder.csproj.CoreCompileInputs.cache
+C:\Users\tom3k\Desktop\Word Counter - Gui source v8\Word Counter\bin\Debug\Word Finder.exe.config
+C:\Users\tom3k\Desktop\Word Counter - Gui source v8\Word Counter\bin\Debug\Word Finder.exe
+C:\Users\tom3k\Desktop\Word Counter - Gui source v8\Word Counter\bin\Debug\Word Finder.pdb
+C:\Users\tom3k\Desktop\Word Counter - Gui source v8\Word Counter\obj\Debug\Word_Finder.Properties.Resources.resources
+C:\Users\tom3k\Desktop\Word Counter - Gui source v8\Word Counter\obj\Debug\Word Finder.exe
+C:\Users\tom3k\Desktop\Word Counter - Gui source v8\Word Counter\obj\Debug\Word Finder.pdb
