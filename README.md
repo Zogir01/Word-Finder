@@ -26,7 +26,7 @@ The look of program:
 
 The main reason of creating Word-Finder is create convenient tool to search specified words in any images. The program has a gui, where we can select over data in easy way. <br />
 
-GUI is written in c# language using windows forms.
+GUI is written in c# language using windows forms. It is using .NET Framework 4.7.2.
 
 - Important note! - We don't have to type tesseract, and poppler paths in gui manually. We can use environmental variables. <br />
 
