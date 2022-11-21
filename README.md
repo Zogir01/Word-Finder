@@ -33,4 +33,4 @@ GUI is written in c# language using windows forms.
 In Word-Finder there is a link between C# gui and python script. Python Script and C# GUI uses Pipes to transfer data between these processes. And for example in this way the script sends information about progress bar to c# GUI <br />
 
 Python script configuration in c#:
-- in the code I use environmental variables to python path to start the script. I assume that the script is in the same folder as exe file.
+- in the code I use environmental variables to python path to start the script. I assume that the script is in the same folder as exe file, and its name is "main.py".
