@@ -12,4 +12,4 @@ The main reason of creating Word-Finder is create convenient tool to search spec
 
 Important note! - We don't have to type tesseract, and poppler paths in gui manually. We can use environmental variables. <br />
 
-In Word-Finder there is a link between C# gui and python script. Python Script uses Pipes to transfer data between these processes. And for example in this way the script sends information about progress to c# GUI <br />
+In Word-Finder there is a link between C# gui and python script. Python Script and C# GUI uses Pipes to transfer data between these processes. And for example in this way the script sends information about progress bar to c# GUI <br />
