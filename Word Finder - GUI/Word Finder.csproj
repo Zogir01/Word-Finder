@@ -61,6 +61,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PythonProcess.cs" />
     <EmbeddedResource Include="addKeywordsForm.resx">
       <DependentUpon>addKeywordsForm.cs</DependentUpon>
     </EmbeddedResource>

@@ -31,15 +31,12 @@ namespace Word_Finder
             {"uzb", "Uzbek"}, {"uzb_cyrl", "Uzbek-Cyrilic"}, {"vie", "Vietnamese"}, {"yid", "Yiddish"}, {"yor", "Yoruba"}
         };
 
-        Process pythonProcess = new Process();
-        Thread progressBarThread;
-        Thread OutputDataThread;
-        List<Button> buttons = new List<Button>();
+        private PythonProcess pythonProcess;
+        private List<Button> buttons = new List<Button>();
 
         public MainForm()
         {
             InitializeComponent();
-            configPythonProcess();
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -61,13 +58,16 @@ namespace Word_Finder
             if (config_succes == true)
             {
                 label_ScriptOutput.Text = "Waiting...";
-                progressBarThread = new Thread(generateProgressBar);
-                OutputDataThread = new Thread(receiveDataFromPython);
-                
-                OutputDataThread.Start();
-                progressBarThread.Start();
+                pythonProcess = new PythonProcess(progressBar, label_ScriptOutput);
 
-                runPythonProcess();
+                try
+                {
+                    pythonProcess.start(python_process_Exited);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error with running script", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
@@ -77,7 +77,7 @@ namespace Word_Finder
         }
         private void button_stopScript_Click(object sender, EventArgs e)
         {
-            pythonProcess.Kill();
+            pythonProcess.stop();
             label_ScriptOutput.Text = "Stopped by user";
         }
         private bool setConfigFile()
@@ -207,97 +207,11 @@ namespace Word_Finder
 
             return true;
         }
-        public void configPythonProcess()
-        {
-            // https://stackoverflow.com/questions/11779143/how-do-i-run-a-python-script-from-c
-            // look at this if you want run process with typing full path to python executable
-
-            var psi = new ProcessStartInfo();
-            psi.FileName = "python.exe";
-            psi.Arguments = "main.py";
-            psi.UseShellExecute = false; 
-            psi.CreateNoWindow = true;
-            psi.RedirectStandardOutput = false; // I'm using pipes to catch the data from python
-            psi.RedirectStandardError = false; // method with RedirectStandardOutput/Error is also good
-
-            pythonProcess.StartInfo = psi;
-            pythonProcess.EnableRaisingEvents = true;
-            pythonProcess.Exited += new EventHandler(python_process_Exited);
-        }
-        public void runPythonProcess()
-        {
-            try
-            {
-                pythonProcess.Start();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error with running script", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            } 
-        }
         private void python_process_Exited(object sender, System.EventArgs e)
         {
             button_stopScript.Invoke(new Action(() => button_stopScript.Enabled = false));
             button_generate.Invoke(new Action(() => button_generate.Enabled = true));
             progressBar.Invoke(new Action(() => progressBar.Value = 0));
-        }
-        public void receiveDataFromPython()
-        {
-            //read data from pipeClient where python script send output data
-            NamedPipeClientStream pipeClient = new NamedPipeClientStream(".", "OutputData", PipeDirection.InOut);
-
-            pipeClient.Connect(); // waiting for connection from python
-
-            StreamReader sr = new StreamReader(pipeClient);
-            while (pipeClient.IsConnected)
-            {
-                try
-                {
-                    string OutputData = sr.ReadLine();
-                    if (!string.IsNullOrEmpty(OutputData))
-                    {
-                        label_ScriptOutput.Invoke(new Action(() => label_ScriptOutput.Text = OutputData));
-                    }
-                }
-                catch (EndOfStreamException)
-                {
-                    break;
-                }
-            }
-        }
-        public void generateProgressBar()
-        {
-            progressBar.Invoke(new Action(() => progressBar.Minimum = 0));
-
-            //read data from pipeClient where python script send info about progress
-            NamedPipeClientStream pipeClient = new NamedPipeClientStream(".", "ProgressBarInfo", PipeDirection.InOut);
-
-            pipeClient.Connect(); // waiting for connection from python
-
-            StreamReader sr = new StreamReader(pipeClient);
-
-            string imgs_length = sr.ReadLine();
-            if (!string.IsNullOrEmpty(imgs_length))
-            {
-                progressBar.Invoke(new Action(() => progressBar.Maximum = int.Parse(imgs_length)));
-            }
-
-            while (pipeClient.IsConnected)
-            {
-                try
-                {
-                    string imgs_counter = sr.ReadLine();
-                    if (!string.IsNullOrEmpty(imgs_counter))
-                    {
-                        progressBar.Invoke(new Action(() => progressBar.Value = int.Parse(imgs_counter)));
-                    }
-                }
-                catch (EndOfStreamException)
-                {
-                    progressBar.Invoke(new Action(() => progressBar.Value = 0));
-                    break;
-                }
-            }
         }
         private void button_filesDirectoryPathSearch_Click(object sender, EventArgs e)
         {
@@ -508,7 +422,7 @@ namespace Word_Finder
         }
         private void Main_FormClosed(Object sender, FormClosedEventArgs e)
         {
-            pythonProcess.Kill();
+            pythonProcess.stop();
             Application.Exit();
             Environment.Exit(Environment.ExitCode);
         }
@@ -524,7 +438,6 @@ namespace Word_Finder
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("https://github.com/tesseract-ocr/tessdata");
-            
         }
 
         private void comboBox_langChoice_SelectedIndexChanged(object sender, EventArgs e)
